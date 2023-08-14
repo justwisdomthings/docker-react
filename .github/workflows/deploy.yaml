@@ -13,6 +13,16 @@ jobs:
       - run: docker build -t wisdomfunnybones/docker-react -f Dockerfile.dev .
       - run: docker run -e CI=true wisdomfunnybones/docker-react npm test
 
+      - run: docker build -t cygnetops/multi-client-10-14 ./client
+      - run: docker build -t cygnetops/multi-nginx-10-14 ./nginx
+      - run: docker build -t cygnetops/multi-server-10-14 ./server
+      - run: docker build -t cygnetops/multi-worker-10-14 ./worker
+
+      - run: docker push cygnetops/multi-client-10-14
+      - run: docker push cygnetops/multi-nginx-10-14
+      - run: docker push cygnetops/multi-server-10-14
+      - run: docker push cygnetops/multi-worker-10-14
+
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
